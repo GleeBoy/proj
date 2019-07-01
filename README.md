@@ -1,1 +1,1 @@
-# gitskills
+# skills
