@@ -2,3 +2,4 @@
 __pycache__/
 proj/__pycache__/
 testSchedule.log
+db.sqlite3
