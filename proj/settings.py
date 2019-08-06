@@ -50,7 +50,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'cele.sessionMiddleware.simple_middleware'
+    # 'cele.sessionMiddleware.simple_middleware'
 ]
 
 ROOT_URLCONF = 'proj.urls'

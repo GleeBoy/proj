@@ -5,5 +5,5 @@ urlpatterns = [
     path('schecount/',  schecount),
     path('addjob/', addjob),
     path('jobdetails/', jobdetails),
-
+    path('getjob/', getJob),
 ]

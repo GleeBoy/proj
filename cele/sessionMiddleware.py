@@ -4,6 +4,7 @@
 如果账号已登录最后return登录页面
 顶替原先的登录只需要删除原先的session就行了，而阻止再次登录需要考虑什么时候用户想session失效
 同时设置 SESSION_EXPIRE_AT_BROWSER_CLOSE = True ，SESSION_COOKIE_AGE = 60 * 15
+登录时还需要对比session model
 """
 from django.http import HttpResponse
 

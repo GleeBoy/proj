@@ -1,17 +1,19 @@
 from django.shortcuts import render
 from  django.http import HttpResponse
+import json
 
 # Create your views here.
 import time
 import logging
 logging.basicConfig(
     level=20,
-    filename='testSchedule.log',  # 不设置filename信息会直接打印出来
+    filename='testSchedule.log',
     format="%(levelname)-5s %(asctime)s %(message)s"
 )
 from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore, register_events
 from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
+from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
 executors = {
     'default': ThreadPoolExecutor(8),
@@ -30,7 +32,7 @@ def test_job():
 
 register_events(scheduler)
 
-# scheduler.start()
+scheduler.start()
 print("Scheduler started!")
 
 def schecount(request):
@@ -41,7 +43,7 @@ def schecount(request):
 
 def addjob(request):
     print(len(scheduler.get_jobs()))
-    scheduler.add_job(test_job, 'interval', seconds=10)
+    addjob = scheduler.add_job(test_job, 'interval', seconds=10)
     print(len(scheduler.get_jobs()))
     return HttpResponse('tets')
 
@@ -49,3 +51,11 @@ def jobdetails(request):
     jobList = scheduler.get_jobs()
     print(dir(jobList[0]))
     return HttpResponse(str(dir(jobList[0])))
+
+def getJob(request):
+    # jobID = request.GET.get('jobID', '')
+    jobs = DjangoJob.objects.all()
+    jobExectList = []
+    for job in jobs:
+        jobExectList.append(job.djangojobexecution_set.all()[0])
+    return HttpResponse(str(jobExectList))
