@@ -10,7 +10,7 @@ kombu==4.6.3
 mod-wsgi==4.6.7+ap24vc15
 numpy==1.16.3
 opencv-python==4.1.0.25
-Pillow==6.0.0
+Pillow==6.2.0
 PyMySQL==0.9.3
 pytesseract==0.2.6
 pytz==2019.1
