@@ -4,7 +4,7 @@ APScheduler==3.6.0
 billiard==3.6.0.0
 celery==4.4.0rc2
 certifi==2019.3.9
-Django==2.1.11
+Django==2.2.10
 django-apscheduler==0.3.0
 kombu==4.6.3
 mod-wsgi==4.6.7+ap24vc15
