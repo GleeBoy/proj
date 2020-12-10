@@ -1,19 +1,20 @@
 from django.shortcuts import render
-from  django.http import HttpResponse
-import json
+from django.http import HttpResponse
+from apscheduler.schedulers.background import BackgroundScheduler
+from django_apscheduler.jobstores import DjangoJobStore
+from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
+from django_apscheduler.models import DjangoJob, DjangoJobExecution
+import time, json
 
 # Create your views here.
-import time
+
 import logging
+
 logging.basicConfig(
     level=20,
     filename='testSchedule.log',
     format="%(levelname)-5s %(asctime)s %(message)s"
 )
-from apscheduler.schedulers.background import BackgroundScheduler
-from django_apscheduler.jobstores import DjangoJobStore
-from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
-from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
 executors = {
     'default': ThreadPoolExecutor(8),
@@ -31,12 +32,12 @@ def test_job():
     # raise ValueError("Olala!")
 
 
-scheduler.start()
-print("Scheduler started!")
+# scheduler.start()
+# print("Scheduler started!")
 
 
 def schecount(request):
-    print(len(scheduler.get_jobs()),scheduler.get_jobs())
+    print(len(scheduler.get_jobs()), scheduler.get_jobs())
     scheduler.remove_all_jobs('default')
     print(len(scheduler.get_jobs()))
     return HttpResponse('tets')

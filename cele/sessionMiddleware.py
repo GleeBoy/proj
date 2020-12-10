@@ -8,6 +8,7 @@
 """
 from django.http import HttpResponse
 
+
 def simple_middleware(get_response):
     # One-time configuration and initialization.
 
