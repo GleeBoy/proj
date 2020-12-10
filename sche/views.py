@@ -11,7 +11,7 @@ logging.basicConfig(
     format="%(levelname)-5s %(asctime)s %(message)s"
 )
 from apscheduler.schedulers.background import BackgroundScheduler
-from django_apscheduler.jobstores import DjangoJobStore, register_events
+from django_apscheduler.jobstores import DjangoJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 from django_apscheduler.models import DjangoJob, DjangoJobExecution
 
@@ -30,10 +30,10 @@ def test_job():
     print("I'm a test job!")
     # raise ValueError("Olala!")
 
-register_events(scheduler)
 
 scheduler.start()
 print("Scheduler started!")
+
 
 def schecount(request):
     print(len(scheduler.get_jobs()),scheduler.get_jobs())
@@ -41,16 +41,19 @@ def schecount(request):
     print(len(scheduler.get_jobs()))
     return HttpResponse('tets')
 
+
 def addjob(request):
     print(len(scheduler.get_jobs()))
     addjob = scheduler.add_job(test_job, 'interval', seconds=10)
     print(len(scheduler.get_jobs()))
     return HttpResponse('tets')
 
+
 def jobdetails(request):
     jobList = scheduler.get_jobs()
     print(dir(jobList[0]))
     return HttpResponse(str(dir(jobList[0])))
+
 
 def getJob(request):
     # jobID = request.GET.get('jobID', '')
