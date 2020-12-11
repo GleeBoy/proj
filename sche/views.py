@@ -4,7 +4,7 @@ from apscheduler.schedulers.background import BackgroundScheduler
 from django_apscheduler.jobstores import DjangoJobStore
 from apscheduler.executors.pool import ThreadPoolExecutor, ProcessPoolExecutor
 from django_apscheduler.models import DjangoJob, DjangoJobExecution
-import time, json
+import time
 
 # Create your views here.
 
