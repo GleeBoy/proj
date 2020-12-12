@@ -11,7 +11,7 @@ import time, json
 import logging
 
 logging.basicConfig(
-    level=20,
+    level=40,
     filename='testSchedule.log',
     format="%(levelname)-5s %(asctime)s %(message)s"
 )
