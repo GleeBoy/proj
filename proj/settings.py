@@ -38,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_apscheduler',
-    'cele'
+    'cele',
+    'django_celery_results'
 ]
 APSCHEDULER_DATETIME_FORMAT =  "Y-m-d H:i:s"  # Default N j, Y, f:s a
 
@@ -113,7 +114,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/2.2/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'zh-hans'
 
 TIME_ZONE = 'Asia/Shanghai'
 
@@ -130,3 +131,19 @@ USE_TZ = False
 STATIC_URL = '/static/'
 
 # SESSION_EXPIRE_AT_BROWSER_CLOSE = True
+
+# Celery Configuration Options
+CELERY_TIMEZONE = "Asia/Shanghai"
+CELERY_TASK_TRACK_STARTED = True
+CELERY_TASK_TIME_LIMIT = 30 * 60
+
+CACHES = {
+    "default": {
+        "BACKEND": "django_redis.cache.RedisCache",
+        "LOCATION": "redis://127.0.0.1:6379/1",     # 目前celery0，缓存1，
+        "OPTIONS": {
+            "CLIENT_CLASS": "django_redis.client.DefaultClient",
+            "CONNECTION_POOL_KWARGS": {"max_connections": 100}
+        }
+    }
+}
