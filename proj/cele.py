@@ -30,9 +30,9 @@ from celery import Celery
 
 from kombu import Queue
 
-app = Celery("proj",
-             broker="redis://10.100.22.165:6379/1",
-             include=['proj.hotplay_task']
+app = Celery("cele",
+             broker="redis://192.168.56.102:6379/1",
+             include=['hotplay_task']
              )
 
 app.conf.update(

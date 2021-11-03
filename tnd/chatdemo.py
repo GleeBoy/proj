@@ -67,6 +67,8 @@ class MessageNewHandler(tornado.web.RequestHandler):
     """Post a new message to the chat room."""
 
     def post(self):
+        # from fsk.utils import cheese  # 下面附上utils模块的实现
+        # cheese()
         message = {"id": str(uuid.uuid4()), "body": self.get_argument("body")}
         # render_string() returns a byte string, which is not supported
         # in json, so we must convert it to a character string.
