@@ -1,16 +1,3 @@
-def func(l, aim):
-    mid = (len(l)-1)//2
-    if l:
-        if aim > l[mid]:
-            func(l[mid+1:], aim)
-        elif aim < l[mid]:
-            func(l[:mid], aim)
-        elif aim == l[mid]:
-            print("bingo", mid)
-    else:
-        print('找不到')
-
-
 class BinarySearch():
 
     def search_iterative(self, list, item):
@@ -61,9 +48,73 @@ class BinarySearch():
             return None
 
 
+# 选择排序， O(n*n)
+def findSmallest(arr):
+    smallest = arr[0]
+    for i in range(len(arr)):
+        if arr[i] < smallest:
+            smallest = arr[i]
+    return smallest
+
+def selectSort(arr):
+    sort_arr = []
+    for i in range(len(arr)):
+        smallest = findSmallest(arr)
+        sort_arr.append(smallest)
+        arr.remove(smallest)
+    print(sort_arr)
+    return sort_arr
+
+
+# 快速排序，分而治之, 平均O(n log2 n) 最糟O(n*n), 最快之一
+def quicksort(arr):
+    if len(arr) < 2:
+        return arr
+    else:
+        pivot = arr[0]
+        less = [i for i in arr[1:] if i <= pivot]
+        greater = [i for i in arr[1:] if i > pivot]
+        return quicksort(less) + [pivot] + quicksort(greater)
+
+
+# 合并排序
+from typing import List
+def merge(arr1: List[int], arr2: List[int]):
+    result = []
+    while arr1 and arr2:
+        if arr1[0] < arr2[0]:
+            result.append(arr1.pop(0))
+        else:
+            result.append(arr2.pop(0))
+    if arr1:
+        result += arr1
+    if arr2:
+        result += arr2
+    return result
+
+def merge_sort(arr:List[int]):
+    """
+    归并排序
+    :param arr: 待排序的List
+    :return: 排好序的List
+    """
+    if len(arr) <= 1:
+        return arr
+    mid = len(arr) // 2
+    return merge(merge_sort(arr[:mid]), merge_sort(arr[mid:]))
+
+
+# 广度优先搜索
+def person_is_seller(name):
+    return name[-1] == 'm'
+
+from collections import deque
+def search(name):
+    search_queue = deque()
+
 if __name__ == "__main__":
     # We must initialize the class to use the methods of this class
-    my_list = [1, 3, 5, 7, 9, 10, 11, 13]
+    # my_list = [1, 3, 5, 7, 9, 10, 11, 13]
     # bs = BinarySearch()
     # print(bs.search_iterative(my_list, 3))  # => 1
     #
@@ -71,6 +122,14 @@ if __name__ == "__main__":
     # print(bs.search_iterative(my_list, -1))  # => None
     # print(bs.search_recursive(my_list, 0, 4, 3))
 
-    func(my_list, 13)
+    my_list = [7, 6, 9, 10, 11, 13, 1, 3, 3, 5, 4]
+    # print(findSmallest(my_list))
+    # my_list = selectSort(my_list)
+    # print(quicksort(my_list))
+
+
+
+
+
 
 
