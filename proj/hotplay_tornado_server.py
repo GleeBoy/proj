@@ -15,7 +15,7 @@ import tornado.httpserver
 
 from celery.execute import send_task
 
-from proj.hotplay_task import do_init_catchup, do_catchup
+from hotplay_task import do_init_catchup, do_catchup
 
 # reload(sys)
 
@@ -28,27 +28,30 @@ class InitCatchupHandler(tornado.web.RequestHandler):
 
     def get(self, path):
 
-        user_name = self.get_argument("user_name", None)
+        # user_name = self.get_argument("user_name", None)
 
-        album_id = self.get_argument("album_id", None)
+        album_id = self.get_argument("id", None)
 
-        album_name = self.get_argument("album_name", None)
+        # album_name = self.get_argument("album_name", None)
+        #
+        # channel_name = self.get_argument("channel_name", None)
 
-        channel_name = self.get_argument("channel_name", None)
-
-        print("request user_name+album_id+album_name+channel_name:%s+%s_%s+%s" % (
-        user_name, album_id, album_name, channel_name))
+        # print("request user_name+album_id+album_name+channel_name:%s+%s_%s+%s" % (
+        # user_name, album_id, album_name, channel_name))
+        print("request user_name+album_id+album_name+channel_name:%s" % album_id)
 
         if album_id == '0':
             self.write('test tornado server init catch up handler. sucess. just return\n')
             return
         try:
             self.write("0")
-            do_init_catchup.delay(user_name, album_id, album_name, channel_name)
-        except:
+            # do_init_catchup.delay(user_name, album_id, album_name, channel_name)
+            do_init_catchup.delay(album_id)
+        except Exception as e:
+            print(e)
             self.write("-1")
         # self.write("not found")
-        # return
+        return
 
 
 class DoCatchupHandler(tornado.web.RequestHandler):
@@ -92,7 +95,7 @@ class DoCatchupJYHandler(tornado.web.RequestHandler):
 
         #    return
 
-        send_task('tasks.test1', args=[hotplay_id, start_dt, end_dt],
+        send_task('proj_tasks.test1', args=[hotplay_id, start_dt, end_dt],
                   queue='hotplay_jy_queue')  # tasks.test1是server2上celery任务函数的file_name.func_name
 
 

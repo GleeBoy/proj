@@ -11,7 +11,7 @@ import time
 
 import subprocess
 
-from proj.cele import app
+from cele import app
 
 # reload(sys)
 
@@ -23,18 +23,19 @@ HOTPLAY_CATCHUP_DIR = '/home/geiliboy/projects/newproject/proj'
 
 
 @app.task(bind=True)
-def do_init_catchup(self, user_name, album_id, album_name, channel_name):
-    print('start to init catch up of user %s album %s:%s in channel %s' % (user_name, album_id, album_name, channel_name))
+def do_init_catchup(self, album_id):
+    print(self)
+    print('start to init catch up of user  album %s in channel' % (album_id))
 
-    job_args = 'source %s/init_catch_up.sh %s %s %s %s > ./logs/%s_%s.log' % (
-    HOTPLAY_CATCHUP_DIR, user_name, album_id, album_name, channel_name, album_id, user_name)
-    print('job_args:', job_args)
-    P = subprocess.Popen(job_args, shell=True)
-    rt_code = P.wait()
-    if rt_code == 0:
-        print('job success...')
-    else:
-        print('job error:%d' % (rt_code))
+    # job_args = 'source %s/init_catch_up.sh %s > ./logs/%s_%s.log' % (
+    # HOTPLAY_CATCHUP_DIR, album_id)
+    # print('job_args:', job_args)
+    # P = subprocess.Popen(job_args, shell=True)
+    # rt_code = P.wait()
+    # if rt_code == 0:
+    #     print('job success...')
+    # else:
+    #     print('job error:%d' % (rt_code))
 
     #    print 'job error:%d, will retry in 5 min'%(rt_code)
 
@@ -49,14 +50,14 @@ def do_catchup(self, hotplay_id, start_dt, end_dt):
 
     print('job_args:', job_args)
 
-    P = subprocess.Popen(job_args, shell=True)
-    rt_code = P.wait()
-    if rt_code == 0:
-        print('job success...')
-
-    else:
-        print('job error:%d' % (rt_code))
-
+    # P = subprocess.Popen(job_args, shell=True)
+    # rt_code = P.wait()
+    # if rt_code == 0:
+    #     print('job success...')
+    #
+    # else:
+    #     print('job error:%d' % (rt_code))
+    #
     #    print 'job error:%d, will retry in 5 min'%(rt_code)
-
+    #
     #    raise self.retry(countdown=300)
