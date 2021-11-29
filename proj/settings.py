@@ -39,7 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'django_apscheduler',
     'cele',
-    'django_celery_results'
+    'django_celery_results',
+    'tsql'
 ]
 APSCHEDULER_DATETIME_FORMAT = "Y-m-d H:i:s"  # Default N j, Y, f:s a
 
@@ -80,14 +81,12 @@ WSGI_APPLICATION = 'proj.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-        # 'ENGINE': 'django.db.backends.mysql',
-        # 'NAME': 'testproj',
-        # 'USER': 'root',
-        # 'PASSWORD': '123456',
-        # "HOST": '10.100.22.158',
-        # 'PORT': '3306',
+        # 'ENGINE': 'django.db.backends.sqlite3',
+        # 'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+        'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            'read_default_file': 'E:/projects/testproj/my.cnf',
+        }
     }
 }
 
