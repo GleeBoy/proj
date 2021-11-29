@@ -7,21 +7,57 @@
 登录时还需要对比session model
 """
 from django.http import HttpResponse
+from django.contrib.auth.models import User
+from django.utils.deprecation import MiddlewareMixin
 
 
-def simple_middleware(get_response):
-    # One-time configuration and initialization.
+# def simple_middleware(get_response):
+#     # One-time configuration and initialization.
+#
+#     def middleware(request):
+#         # Code to be executed for each request before
+#         # the view (and later middleware) are called.
+#
+#         # response = get_response(request)
+#         response = HttpResponse()
+#
+#         # Code to be executed for each request/response after
+#         # the view is called.
+#         response.content = u'账号已登录，禁止再次登录'
+#         print(User.objects.all())
+#         return response
+#
+#     return middleware
 
-    def middleware(request):
-        # Code to be executed for each request before
-        # the view (and later middleware) are called.
 
-        # response = get_response(request)
-        response = HttpResponse()
+class SimpleMiddleware(MiddlewareMixin):
+    # def __init__(self, get_response=None):
+    # def process_request(self, request):
+    # def process_response(self, request, response):
 
-        # Code to be executed for each request/response after
-        # the view is called.
-        response.content = u'账号已登录，禁止再次登录'
+    def __init__(self, get_response=None):
+        self.get_response = get_response
+    # def __init__(self):
+        print(111111111)
+
+    def process_request(self, request):
+        print(request)
+
+    def process_view(self, request, view_func, view_args, view_kwargs):
+        print(view_func, view_args, view_kwargs)
+
+    def process_template_response(self, request, response):
+        print(response)
         return response
 
-    return middleware
+    def process_response(self, request, response):
+        print(response)
+        return response
+
+    def process_exception(self, request, exception):
+        print('exception')
+        return HttpResponse('exception')
+
+
+
+

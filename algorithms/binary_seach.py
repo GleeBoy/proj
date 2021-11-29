@@ -105,17 +105,98 @@ def merge_sort(arr:List[int]):
 
 
 # 广度优先搜索
+graph = {}  # 数据
+graph["you"] = ["alice", "bob", "claire"]
+graph["bob"] = ["anuj", "peggy"]
+graph["alice"] = ["peggy"]
+graph["claire"] = ["thom", "jonny"]
+graph["anuj"] = []
+graph["peggy"] = []
+graph["thom"] = []
+graph["jonny"] = []
+
 def person_is_seller(name):
     return name[-1] == 'm'
 
 from collections import deque
 def search(name):
     search_queue = deque()
+    search_queue += graph[name]
+    searched = []
+    while search_queue:
+        person = search_queue.popleft()  # 取出第一个人
+        if person not in searched:
+            if person_is_seller(person):
+                print(person + 'is a mange seller!')
+                return True
+            else:
+                # 你需要按加入顺序检查搜索列表中的人，否则找到的就不是最短路径，因此搜索列表必须是队列。
+                search_queue += graph[person]  # 把这个人朋友加入队列
+                searched.append(person)
+    return False
+
+
+# 拓扑排序 把图排序成有序列表
+# 树
+class Node(object):
+    """节点类"""
+    def __init__(self, elem=-1, lchild=None, rchild=None):
+        self.elem = elem
+        self.lchild = lchild
+        self.rchild = rchild
+
+
+class Tree(object):
+    """树类"""
+    def __init__(self):
+        self.root = Node()
+        self.myQueue = []
+
+    def add(self, elem):
+        """为树添加节点"""
+        node = Node(elem)
+        if self.root.elem == -1:  # 如果树是空的，则对根节点赋值
+            self.root = node
+            self.myQueue.append(self.root)
+        else:
+            treeNode = self.myQueue[0]  # 此结点的子树还没有齐。
+            if treeNode.lchild == None:
+                treeNode.lchild = node
+                self.myQueue.append(treeNode.lchild)
+            else:
+                treeNode.rchild = node
+                self.myQueue.append(treeNode.rchild)
+                self.myQueue.pop(0)  # 如果该结点存在右子树，将此结点丢弃。
+
+    def front_digui(self, root):
+        """利用递归实现树的先序遍历"""
+        if root == None:
+            return
+        print(root.elem)
+        self.front_digui(root.lchild)
+        self.front_digui(root.rchild)
+
+    def middle_digui(self, root):
+        """利用递归实现树的中序遍历"""
+        if root == None:
+            return
+        self.middle_digui(root.lchild)
+        print(root.elem)
+        self.middle_digui(root.rchild)
+
+    def later_digui(self, root):
+        """利用递归实现树的后序遍历"""
+        if root == None:
+            return
+        self.later_digui(root.lchild)
+        self.later_digui(root.rchild)
+        print(root.elem)
+
 
 if __name__ == "__main__":
     # We must initialize the class to use the methods of this class
     # my_list = [1, 3, 5, 7, 9, 10, 11, 13]
-    # bs = BinarySearch()
+    bs = BinarySearch()
     # print(bs.search_iterative(my_list, 3))  # => 1
     #
     # # 'None' means nil in Python. We use to indicate that the item wasn't found.
@@ -127,9 +208,32 @@ if __name__ == "__main__":
     # my_list = selectSort(my_list)
     # print(quicksort(my_list))
 
+    # print(search('you'))
 
+    # elems = range(10)  # 生成十个数据作为树节点
+    # tree = Tree()  # 新建一个树对象
+    # for elem in elems:
+    #     tree.add(elem)
+    # # print(tree.myQueue)
+    # print('\n\n递归实现先序遍历:')
+    # tree.front_digui(tree.root)
+    # print('\n递归实现中序遍历:')
+    # tree.middle_digui(tree.root)
+    # print('\n递归实现后序遍历:')
+    # tree.later_digui(tree.root)
 
-
+    # def task():
+    #     # begin = yield
+    #     # print("begin", begin)
+    #     yield 1
+    #     for x in range(10):
+    #         yield x
+    #
+    # f = task()
+    # # f.send(None)
+    # r = next(f)
+    # print(r)
+    # print(f.send(2))
 
 
 
