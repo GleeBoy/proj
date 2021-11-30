@@ -37,9 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django_apscheduler',
+    # 'django_apscheduler',
     'cele',
-    'django_celery_results',
+    # 'django_celery_results',
     'tsql'
 ]
 APSCHEDULER_DATETIME_FORMAT = "Y-m-d H:i:s"  # Default N j, Y, f:s a
