@@ -20,4 +20,5 @@ urlpatterns = [
     path('', admin.site.urls),
     path('sche/', include('sche.urls')),
     path('cele/', include('cele.urls')),
+    path('tsql/', include('tsql.urls')),
 ]

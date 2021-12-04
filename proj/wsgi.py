@@ -15,6 +15,5 @@ os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'proj.settings')
 
 application = get_wsgi_application()
 
-from tsql.views import random_insert
-
-random_insert()
+# from tsql.views import random_insert
+# random_insert()
