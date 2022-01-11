@@ -9,7 +9,7 @@ click-didyoumean==0.0.3
 click-plugins==1.1.1
 click-repl==0.1.6
 #dataclasses==0.8
-Django==3.0
+Django==3.1.14
 django-apscheduler==0.5.1
 django-celery-results==2.0.0
 django-redis==4.12.1
