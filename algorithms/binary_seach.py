@@ -23,7 +23,7 @@ class BinarySearch():
         # Item doesn't exist
         return None
 
-    def search_recursive(self, list, low, high, item):
+    def search_recursive(self, list, low, high, item):  # low high 参数超出报错
         # Check base case
         if high >= low:
 
@@ -193,6 +193,89 @@ class Tree(object):
         print(root.elem)
 
 
+# class definition
+class Bar(object):
+  def __init__(self, a):
+    self.a = a
+
+class BarSlotted(object):
+    __slots__ = "a",
+    def __init__(self, a):
+        self.a = a
+
+# __slots__当你事先知道class的attributes的时候，建议使用slots来节省memory以及获得更快的attribute access
+bar = Bar(1)
+bar_slotted = BarSlotted(1)
+
+
+class Animal:
+
+    def __init__(self, color="白色"):
+        Animal.color = color
+
+    def get_color(self):
+        print("Animal的颜色为", Animal.color)
+
+
+class Cat(Animal):
+    def __init__(self):
+        Animal.__init__(self)
+        pass
+
+
+# cat = Cat()
+# cat.get_color()
+
+
+lis = ['apple','lemon','pear','peach']
+
+def fn(x):
+    return x[::-1]
+# lis.sort(key=fn)    # ['apple', 'peach', 'lemon', 'pear'] ehrn
+lis.sort(key=fn, reverse=True)
+# print(lis)
+
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+class Solution:
+    def addTwoNumbers(self, l1: ListNode, l2: ListNode) -> ListNode:
+
+        # 当前指针，结果链表
+        result = curr = ListNode()
+        # 进位项
+        remainder = 0
+
+        # 非空满足循环条件
+        while l1 or l2 :
+            x = l1.val if l1 else 0
+            y = l2.val if l2 else 0
+
+            total = x + y + remainder
+
+            curr.next = ListNode(total%10)
+            remainder = total//10
+
+            # 🚩防止某一链表已经为空，空链表.next会报错
+            if l1 : l1 = l1.next
+            if l2 : l2 = l2.next
+            curr = curr.next
+
+        if remainder: curr.next = ListNode(remainder)
+        return result.next
+
+
+def maxProfit(prices):
+    cost, profit = float('+inf'), 0
+    for price in prices:
+        cost = min(cost, price)
+        profit = max(profit, price - cost)
+
+    return profit
+
+
 if __name__ == "__main__":
     # We must initialize the class to use the methods of this class
     # my_list = [1, 3, 5, 7, 9, 10, 11, 13]
@@ -201,7 +284,7 @@ if __name__ == "__main__":
     #
     # # 'None' means nil in Python. We use to indicate that the item wasn't found.
     # print(bs.search_iterative(my_list, -1))  # => None
-    # print(bs.search_recursive(my_list, 0, 4, 3))
+    # print(bs.search_recursive(my_list, 0, 19, 13))
 
     my_list = [7, 6, 9, 10, 11, 13, 1, 3, 3, 5, 4]
     # print(findSmallest(my_list))
@@ -234,6 +317,88 @@ if __name__ == "__main__":
     # r = next(f)
     # print(r)
     # print(f.send(2))
+
+    import asyncio
+
+
+    def bottom():
+        """返回yield表达式来允许值通过调用栈进行传递"""
+        return (yield 42)
+
+
+    def middle():
+        return (yield from bottom())
+
+
+    def top():
+        return (yield from middle())
+
+    # gen = middle()
+    # value = next(gen)
+    # print(value)  # Prints '42'
+    #
+    # try:
+    #     value = gen.send(value * 2)
+    # except StopIteration as exc:
+    #     print("Error!")  # Prints 'Error!'
+    #     value = exc.value
+    # print(value)
+    #
+    # class Person:
+    #     def __init__(self):
+    #         pass
+    #
+    #     def getAge(self):
+    #         print(__name__)
+    # p = Person()
+    # p.getAge()
+    def twoSum(nums, target):
+        hashmap = {}
+        for i,num in enumerate(nums):
+            if hashmap.get(target - num) is not None:
+                return (i, hashmap.get(target - num))
+            hashmap[num] = i
+
+
+    def isPrime(n):
+        # Write your code here
+        if n < 3:
+            return 1
+        for i in range(2, n):
+            if n % i == 0:
+                return i
+        return 1
+
+
+    # def selectStock(saving, currentValue, futureValue):
+    #     # Write your code here
+    #     same_stock = list(zip(currentValue, futureValue))
+    #     profit_list = list(map(lambda x, y: y - x, same_stock))
+    #     current_profit = zip(currentValue, profit_list)
+    #     max_profit = sorted(current_profit, key=lambda x: x[1], reverse=True)
+    #     print(max_profit)
+    #
+    #
+    # selectStock(1, [1,2,3], [2,3,5])
+
+    print(maxProfit([2,3,5,1]))
+
+
+    class Resource():
+        def __enter__(self):
+            print('===connect to resource===')
+            return self
+
+        def __exit__(self, exc_type, exc_val, exc_tb):
+            print('===close resource connection===')
+
+        def operate(self):
+            print('===in operation===')
+
+    import socket
+    import socketserver
+
+
 
 
 
