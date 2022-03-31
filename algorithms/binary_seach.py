@@ -192,6 +192,61 @@ class Tree(object):
         self.later_digui(root.rchild)
         print(root.elem)
 
+# 杨辉三角的规律：
+# 1、第n行有n个数字
+# 2、每行的前后，都是“1”
+# 3、第n行的第L[i]的值，等于第n-1行第L[i]+L[i+1]的值
+def triangles():
+    L = [1]              #定义L为一个只包含一个元素的列表
+    while True:
+        yield L          #定义为生成器函数
+        L =[1] + [L[n] + L[n-1] for n in range(1, len(L))] + [1]
+def print_triangle():
+    n = 0
+    for t in triangles():
+        print(t)
+        n = n + 1
+        if n == 5:
+            break
+
+
+# 吃1到2个豆子，台阶问题
+def eat(n):
+    if n < 5:
+        return n
+    f = [0] * (n + 1)
+    for i in range(5):
+        f[i] = i
+    for i in range(5, n + 1):
+        f[i] = f[i - 1] + f[i - 3]
+    # print(f)
+    return f[-1]
+
+
+# 动态规划
+def backpack():
+    w = [1, 2, 3, 4]
+    v = [1, 1, 2, 3]
+    dp = [[0 for i in range(len(v))] for j in w]
+
+
+
+
+from multiprocessing import Process
+import os
+
+def info(title):
+    print(title)
+    print('module name:', __name__)
+    print('parent process:', os.getppid())
+    print('process id:', os.getpid())
+
+def f(name):
+    info('function f')
+    print('hello', name)
+
+
+
 
 if __name__ == "__main__":
     # We must initialize the class to use the methods of this class
@@ -234,6 +289,21 @@ if __name__ == "__main__":
     # r = next(f)
     # print(r)
     # print(f.send(2))
+
+    # print_triangle()
+
+
+    def tuzi(n):
+        a = 1
+        b = 1
+        for i in range(1, n + 1, 2):
+            print('%d %d' % (a, b))
+            a += b
+            b += a
+
+
+    tuzi(10)
+
 
 
 

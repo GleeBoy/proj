@@ -21,4 +21,5 @@ urlpatterns = [
     path('sche/', include('sche.urls')),
     path('cele/', include('cele.urls')),
     path('tsql/', include('tsql.urls')),
+    # path('tsql/', include('tsql.urls')),
 ]
