@@ -7,6 +7,7 @@ class Record(models.Model):
     pass_date = models.DateTimeField(verbose_name='通过时间', auto_now_add=True)
     img_path = models.CharField(verbose_name='采集图像', max_length=255)
     user_id = models.IntegerField(verbose_name='通过人员', blank=True, null=True)
+    animal_heat = models.FloatField(verbose_name='体温', blank=True, null=True)
 
     class Meta:
         db_table = 'record'
