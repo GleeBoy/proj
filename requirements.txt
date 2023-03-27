@@ -26,7 +26,7 @@ prompt-toolkit==3.0.8
 protobuf==3.14.0
 #pygraphviz @ file:///E:/%E6%B5%8F%E8%A7%88%E5%99%A8%E4%B8%8B%E8%BD%BD/pygraphviz-1.5-cp36-cp36m-win_amd64.whl
 pytz==2020.4
-redis==3.5.3
+redis==4.5.3
 six==1.15.0
 sqlparse==0.4.1
 tornado==6.1
