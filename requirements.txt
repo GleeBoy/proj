@@ -13,7 +13,7 @@ Django==3.0
 django-apscheduler==0.5.1
 django-celery-results==2.0.0
 django-redis==4.12.1
-Flask==2.0.2
+Flask==2.3.2
 graphviz==0.17
 importlib-metadata==3.1.1
 itsdangerous==2.0.1
